@@ -1,7 +1,7 @@
 # hrms
 
 ### veritabanı
-![dbnew](https://user-images.githubusercontent.com/23154975/119652206-75428980-be2e-11eb-8a91-a13d25c23722.png)
+![db2](https://user-images.githubusercontent.com/23154975/120078879-29a41000-c0ba-11eb-8abc-58763128fc52.png)
 
 ## Dosya yapısı
 * Api
