@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 
 @Data
@@ -30,9 +31,10 @@ public abstract class User {
     private String password;
 
     @Column(name = "is_deleted")
-    private boolean isDeleted =false;
+    private boolean isDeleted=false;
 
     @Column(name = "created_date", columnDefinition = "Date defult CURRENT_DATE")
-    private LocalDateTime createdDate=LocalDateTime.now();
+    private LocalDate createdDate=LocalDate.now();
+
 
 }
