@@ -5,6 +5,7 @@ import kodlamaio.hrms.core.utilities.results.*;
 import kodlamaio.hrms.dataAccess.abstracts.JobAdvertDao;
 
 import kodlamaio.hrms.entities.concretes.JobAdvert;
+import kodlamaio.hrms.entities.dtos.ActiveJobAdvertDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class JobAdvertManager implements JobAdvertService {
 
     @Override
     public DataResult<List<JobAdvert>> getAll() {
+        if (this.jobAdvertDao.findAll().isEmpty()){
+            return new ErrorDataResult<List<JobAdvert>>("is ilani bulunamamaktadir.");
+        }
         return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAll(),"listeleme basarili");
     }
 
@@ -32,14 +36,23 @@ public class JobAdvertManager implements JobAdvertService {
     }
 
     @Override
-    public Result changeJobAdvertStatusToClose(int jobAdverId) {
-        JobAdvert jobAdvert=getJobAdvertById(jobAdverId).getData();
-        if (!jobAdvert.isActive()){
-            return new ErrorResult("is ilani kapali durumdadir");
+    public Result changeJobAdvertStatus(int jobAdvertId) {
+        JobAdvert jobAdvert=getJobAdvertById(jobAdvertId).getData();
+        if (jobAdvert.isActive()==true){
+            jobAdvert.setActive(false);
+            this.jobAdvertDao.save(jobAdvert);
+            return new SuccessResult("is ilani kapatildi.");
         }
-        jobAdvert.setActive(false);
+
+        jobAdvert.setActive(true);
         this.jobAdvertDao.save(jobAdvert);
-        return new SuccessResult("İs durumu degisti.");
+        return new SuccessResult("İs ilani acildi.");
+
+    }
+
+    @Override
+    public DataResult<List<ActiveJobAdvertDto>> getActiveJobAdvert() {
+        return new SuccessDataResult<List<ActiveJobAdvertDto>>(this.jobAdvertDao.getActiveJobAdvert());
     }
 
     @Override
@@ -51,20 +64,20 @@ public class JobAdvertManager implements JobAdvertService {
     }
 
     @Override
-    public DataResult<List<JobAdvert>> getAllActiveByCreatedDate() {
+    public DataResult<List<ActiveJobAdvertDto>> getAllActiveByCreatedDate() {
         if (this.jobAdvertDao.getAllActive().isEmpty()){
-            return new ErrorDataResult<List<JobAdvert>>("Aktif is ilani bulunamamaktadir.");
+            return new ErrorDataResult<List<ActiveJobAdvertDto>>("Aktif is ilani bulunamamaktadir.");
         }
-        return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getAllActiveByCreatedDate(),"listeledi.");
+        return new SuccessDataResult<List<ActiveJobAdvertDto>>(this.jobAdvertDao.getAllActiveByCreatedDate(),"listeledi.");
     }
 
     @Override
-    public DataResult<List<JobAdvert>> getAllActiveByEmployer(int employerId) {
+    public DataResult<List<ActiveJobAdvertDto>> getAllActiveByEmployer(int employerId) {
 
         if (this.jobAdvertDao.getAllActiveByEmployer(employerId).isEmpty()){
-            return new ErrorDataResult<List<JobAdvert>>("Bu is verene göre is kaydi bulunmamaktadir");
+            return new ErrorDataResult<List<ActiveJobAdvertDto>>("Bu is verene göre is kaydi bulunmamaktadir");
         }
-        return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getAllActiveByEmployer(employerId));
+        return new SuccessDataResult<List<ActiveJobAdvertDto>>(this.jobAdvertDao.getAllActiveByEmployer(employerId));
     }
 
     @Override

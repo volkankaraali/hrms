@@ -25,7 +25,7 @@ public class JobTitle {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "jobTitle")
     @JsonIgnore
+    @OneToMany(mappedBy = "jobTitle")
     private List<JobAdvert> jobAdverts;
 }

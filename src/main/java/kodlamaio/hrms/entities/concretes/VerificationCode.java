@@ -1,5 +1,6 @@
 package kodlamaio.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,9 +26,11 @@ public class VerificationCode {
     @Column(name = "code")
     private String code;
 
+    @JsonIgnore
     @Column(name = "is_verified")
     private boolean isVerified=false;
 
+    @JsonIgnore
     @Column(name = "created_date" ,columnDefinition = "Date defult CURRENT_DATE")
     private LocalDate creadtedDate=LocalDate.now();
 

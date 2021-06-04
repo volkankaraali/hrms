@@ -4,6 +4,7 @@ import kodlamaio.hrms.business.abstracts.JobAdvertService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.JobAdvert;
+import kodlamaio.hrms.entities.dtos.ActiveJobAdvertDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class JobAdvertsController {
     }
 
     @PostMapping("/add")
-    public Result add(JobAdvert jobAdvert){
+    public Result add(@RequestBody JobAdvert jobAdvert){
         return this.jobAdvertService.add(jobAdvert);
     }
 
@@ -34,12 +35,12 @@ public class JobAdvertsController {
     }
 
     @GetMapping("/getAllActiveByCreatedDate")
-    public DataResult<List<JobAdvert>> getAllActiveByCreatedDate(){
+    public DataResult<List<ActiveJobAdvertDto>> getAllActiveByCreatedDate(){
         return this.jobAdvertService.getAllActiveByCreatedDate();
     }
 
     @GetMapping("/getAllActiveByEmployer")
-    public DataResult<List<JobAdvert>> getAllActiveByEmployer(int employerId){
+    public DataResult<List<ActiveJobAdvertDto>> getAllActiveByEmployer(int employerId){
         return this.jobAdvertService.getAllActiveByEmployer(employerId);
     }
 
@@ -49,7 +50,13 @@ public class JobAdvertsController {
     }
 
     @PostMapping("changeJobAdvertStatus")
-    public Result changeJobAdvertStatus(int jobAdvertId){
-        return this.jobAdvertService.changeJobAdvertStatusToClose(jobAdvertId);
+    public Result changeJobAdvertStatus(@RequestBody int jobAdvertId){
+        return this.jobAdvertService.changeJobAdvertStatus(jobAdvertId);
+    }
+
+
+    @GetMapping("/getActiveJobAdvert")
+    public DataResult<List<ActiveJobAdvertDto>> getActiveJobAdvert(){
+        return this.jobAdvertService.getActiveJobAdvert();
     }
 }
