@@ -6,8 +6,11 @@
 ## Dosya yapısı
 * Api
   * Controllers
+* Config
 * Core
-  * Result
+  * Utilies
+    * ImageUpload 
+    * Results
   * Validation
   * Adapter
 * Business
@@ -30,3 +33,9 @@ ekleme islemi basarili olmasi durumunda verification_codes tablosu için kod olu
 * Şehirler (cities) tablosu olsusturuldu.
 * İş ilani (job_adverts) tablosu olusturuldu.
 * İş ilani oluşturulması, aktif iş ilanları listeleme, aktif iş ilanlarını tarihe göre listeleme, bir firmaya (employer)'e göre iş ilanları listeleme, iş ilanını kapatma(pasif olarak aktifliğini kapatma) isterleri eklendi.
+
+### #3
+* sisteme iş arayanlar(candidates)'ın cv ekleyebilmesi için veri tabanında ilgili tablolar oluşturuldu. ve projeye dahil edildi.
+* cv'nin gösterilmesi için bir dto yazıldı. 
+* cv'ye koyulan fotoğrafların saklanması için dış servis olarak [cloudinary.com](https://cloudinary.com) bağlantısı yapıldı ve entegre edildi.
+* giriş ekranı(login) için user classı kullanılarak dto yazıldı.
